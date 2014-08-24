@@ -6,7 +6,7 @@ Supported features:
 ## USAGE
 See src/awda-interfaces for more information
 
-### BUUILDING
+### BUILDING
 Ffmpeg-devel and GNAT >= 4.8  must be installed. 
 'make'
 
