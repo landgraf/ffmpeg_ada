@@ -7,11 +7,5 @@ project ffmpeg_ada is
     for Library_Kind use "relocatable";
     for Library_Name use "ffmpeg_ada";
     for Externally_Built use "True";
-    package Linker is 
-        for Default_Switches ("C") use  ("-lavformat" , "-lavutil", "-lavcodec");
-        for Linker_Options use ("-lavformat", "-lavutil", "-lavcodec");
-        for Switches ("main.adb") use ("-lavformat", "-lavcodec", "-lavutil");
-        for Switches ("metadata.c") use ("-lavformat" , "-lavutil", "-lavcodec");
-    end Linker;
 
 end ffmpeg_ada; 
