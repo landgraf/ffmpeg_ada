@@ -1,0 +1,26 @@
+library project ffmpeg_ada is 
+    for Languages use ("Ada", "C");
+    for Object_Dir use "../obj/";
+    for Library_Dir use "../lib/";
+    for Library_Ali_Dir use "../lib/";
+    for Library_Kind use "relocatable";
+    Version := "0.1";
+    for Library_Name use "ffmpegada";
+    for Library_Version use "lib" & Project'Library_Name & ".so." & VERSION;
+    type Word_Size_Type is ("dummy", "32", "64");
+    Word_Size : Word_Size_Type := external ("Word", "dummy");
+
+    for Source_Dirs use ("../src/", "../src/internal/c", "../src/internal");
+    case Word_Size is
+        when "32" =>
+            for Source_Dirs use Project'Source_Dirs & ("../src/internal/32bit/");
+        when "64" | "dummy" =>
+            for Source_Dirs use Project'Source_Dirs & ("../src/internal/64bit/");
+    end case;
+
+    package Compiler is
+        for Default_Switches ("C") use  ("-I", "/usr/include/ffmpeg/", "-g", "-ggdb", "-std=c99");
+    end Compiler;
+
+end ffmpeg_ada; 
+

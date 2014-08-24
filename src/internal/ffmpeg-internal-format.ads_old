@@ -1,0 +1,24 @@
+package ffmpeg.internal.format is 
+
+    type AVInputFormat_T is limited private;
+    type AVOutputFormat_T is limited private;
+    type AVInputFormat_Access_T is access all AVInputFormat_T with Convention => C;
+    type AVOutputFormat_Access_T is access all AVOutputFormat_T with Convention => C;
+    private
+    type AVInputFormat_T is limited null record with Convention => C;
+    type AVOutputFormat_T is limited null record with Convention => C;
+    --void av_register_input_format(AVInputFormat *format);
+    --void av_register_output_format(AVOutputFormat *format);
+    procedure av_register_input_format ( Format : AVInputFormat_Access_T) with Import, Convention => C;
+    procedure av_register_output_format ( Format : AVOutputFormat_Access_T) with Import, Convention => C;
+    -- 
+    -- /**
+    --  * If f is NULL, returns the first registered input format,
+    --  * if f is non-NULL, returns the next registered input format after f
+    --  * or NULL if f is the last one.
+    --  */
+
+    function av_iformat_next (Format : AVInputFormat_Access_T) return AVInputFormat_Access_T  with Import, Convention => C;
+    function av_oformat_next (Format : AVOutputFormat_Access_T) return AVOutputFormat_Access_T  with Import, Convention => C;
+end ffmpeg.internal.format; 
+
