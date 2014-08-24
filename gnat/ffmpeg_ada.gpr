@@ -9,15 +9,18 @@ library project ffmpeg_ada is
     for Library_Version use "lib" & Project'Library_Name & ".so." & VERSION;
     type Word_Size_Type is ("dummy", "32", "64");
     Word_Size : Word_Size_Type := external ("Word", "dummy");
-
     for Source_Dirs use ("../src/", "../src/internal/c", "../src/internal");
-    case Word_Size is
-        when "32" =>
-            for Source_Dirs use Project'Source_Dirs & ("../src/internal/32bit/");
-        when "64" | "dummy" =>
-            for Source_Dirs use Project'Source_Dirs & ("../src/internal/64bit/");
-    end case;
 
+    package Naming is
+        case Word_Size is
+            when "32" =>
+                for Specification ("Ffmpeg.Internal.Types") use "ffmpeg-internal-types__32bit.ads";
+            when "64" =>
+                for Specification ("Ffmpeg.Internal.Types") use "ffmpeg-internal-types__64bit.ads";
+            when "dummy" => 
+                for Specification ("Ffmpeg.Internal.Types") use "ffmpeg-internal-types.ads";
+        end case;
+    end Naming;
     package Compiler is
         for Default_Switches ("C") use  ("-I", "/usr/include/ffmpeg/", "-g", "-ggdb", "-std=c99");
     end Compiler;
