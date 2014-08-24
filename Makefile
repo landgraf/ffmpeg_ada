@@ -5,7 +5,7 @@ ifeq (${DEBUG}, True)
 else
 	DEBUG = False
 endif
-NAME = $(shell basename ${PWD})
+NAME = ffmpeg_ada
 PROJECT ?= ${NAME}
 DESTDIR ?= 
 prefix ?= /usr/local
@@ -35,6 +35,7 @@ clean:
 
 tests: build
 	gprbuild -P tests/runner/test_driver
+
 clean_rpm:
 	rm -rf ${HOME}/rpmbuild/SOURCES/${NAME}-${VERSION}.tgz
 	rm -f packaging/${NAME}-build.spec
@@ -45,4 +46,17 @@ rpm: clean_rpm
 	sed "s/@RELEASE@/`date +%s`/;s/@DEBUG@/${DEBUG}/" packaging/Fedora.spec > packaging/${NAME}-build.spec
 	rpmbuild -ba packaging/${NAME}-build.spec
 	rm -f packaging/${NAME}-build.spec
+
+install:
+	install -d -m 0755 ${DESTDIR}/${libdir}/${PROJECT}
+	install -d -m 0755 ${DESTDIR}/${includedir}/${PROJECT}
+	install -d -m 0755 ${DESTDIR}/${gprdir}
+	install -d -m 0755 ${DESTDIR}/${bindir}
+	install -d -m 0755 ${DESTDIR}/${prefix}/share/doc/${PROJECT}/examples
+	cp -r lib/*.ali ${DESTDIR}/${libdir}/${PROJECT}
+	cp -r lib/*.so* ${DESTDIR}/${libdir}/${PROJECT}
+	cp -r src/* ${DESTDIR}/${includedir}/${PROJECT}
+	cp -r install/${PROJECT}.gpr ${DESTDIR}/${gprdir}
+	cp -r examples ${DESTDIR}/${prefix}/share/doc/${PROJECT}/examples
+	cd ${DESTDIR}/${libdir} && ln -s ${PROJECT}/*.so* .
 

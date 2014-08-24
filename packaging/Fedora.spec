@@ -32,7 +32,7 @@ Requires:   %{name}%{?_isa} = %{version}-%{release}
 %build
 export FLAGS="%GPRbuild_optflags"
 export DEBUG=%{debug}
-make %{?_smp_mflags} build_libs
+make %{?_smp_mflags} build
 
 
 %install
@@ -40,8 +40,8 @@ make install DESTDIR=%{buildroot} \
 prefix=%{_prefix} \
 libdir=%{_libdir}
 
-%check
-make test
+##%check
+##make test
 
 %post -p /sbin/ldconfig
 

@@ -5,7 +5,7 @@ library project ffmpeg_ada is
     for Library_Ali_Dir use "../lib/";
     for Library_Kind use "relocatable";
     Version := "0.1";
-    for Library_Name use "ffmpegada";
+    for Library_Name use "ffmpeg_ada";
     for Library_Version use "lib" & Project'Library_Name & ".so." & VERSION;
     type Word_Size_Type is ("dummy", "32", "64");
     Word_Size : Word_Size_Type := external ("Word", "dummy");
