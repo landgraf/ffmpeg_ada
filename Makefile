@@ -56,6 +56,7 @@ install:
 	cp -r lib/*.ali ${DESTDIR}/${libdir}/${PROJECT}
 	cp -r lib/*.so* ${DESTDIR}/${libdir}/${PROJECT}
 	cp -r src/* ${DESTDIR}/${includedir}/${PROJECT}
+	sed "s/@WORDSIZE@/${ARCH}/g" install/${PROJECT}.gpr.templ > install/${PROJECT}.gpr
 	cp -r install/${PROJECT}.gpr ${DESTDIR}/${gprdir}
 	cp -r examples ${DESTDIR}/${prefix}/share/doc/${PROJECT}/examples
 	cd ${DESTDIR}/${libdir} && ln -s ${PROJECT}/*.so* .

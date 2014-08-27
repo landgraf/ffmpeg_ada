@@ -13,5 +13,8 @@ project ffmpeg_ada is
         for Switches ("main.adb") use ("-lavformat", "-lavcodec", "-lavutil");
         for Switches ("metadata.c") use ("-lavformat" , "-lavutil", "-lavcodec");
     end Linker;
+    package Naming is
+        for Specification ("Ffmpeg.Internal.Types") use "ffmpeg-internal-types__@WORDSIZE@bit.ads";
+    end Naming;
 
 end ffmpeg_ada; 
