@@ -4,7 +4,7 @@ package awda.interfaces.ffmpeg is
 
     procedure Open_File (Self : in out Ffmpeg_T; Filename : String);
 
-    procedure Print_All_Subtitles (Self : in out Ffmpeg_T);
+    procedure Print_All (Self : in out Ffmpeg_T);
 
     procedure Close (Self : in out ffmpeg_t);
     private

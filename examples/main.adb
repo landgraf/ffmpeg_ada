@@ -7,7 +7,7 @@ procedure main is
     function FIlename return String is ((if Ada.Command_Line.Argument_Count > 0 then Ada.Command_Line.Argument (1) else ""));
 begin
     ffmpeg.Open_File(Filename);
-    ffmpeg.print_all_subtitles;
+    ffmpeg.print_all;
     -- ffmpeg.close;
 end main; 
 

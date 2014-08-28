@@ -14,10 +14,14 @@ package body awda.interfaces.ffmpeg is
         Self.Context.Open_File(Filename);
     end Open_File;
 
-    procedure Print_All_Subtitles (Self : in out Ffmpeg_T) is
+    procedure Print_All (Self : in out Ffmpeg_T) is
 
       use Ada.Text_IO;
-      procedure Null_Action (Element : in Standard.ffmpeg.frame.audio.audio_t) is null;
+      procedure Print (Element : in Standard.ffmpeg.frame.audio.audio_t) is
+      begin
+          Put_Line("Audio frame");
+      end Print;
+
       procedure Null_Action (Element : in Standard.ffmpeg.frame.video.video_t) is null;
       procedure Print (Element : in Standard.ffmpeg.frame.subtitle.subtitle_t) is
       begin
@@ -37,10 +41,10 @@ package body awda.interfaces.ffmpeg is
 
       procedure Print_All is new Standard.ffmpeg.Iterators.Iterate_on_frame_G (Subtitle_Action => Print,
                                                                                Video_Action => Null_Action,
-                                                                               Audio_Action => Null_Action);
+                                                                               Audio_Action => Print);
     begin
       print_all (Self.Context);
-    end Print_All_Subtitles;
+    end Print_All;
 
     procedure Close (Self : in out ffmpeg_t) is 
     begin

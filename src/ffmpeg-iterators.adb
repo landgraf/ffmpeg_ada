@@ -34,7 +34,9 @@ package body ffmpeg.iterators is
                             use Ffmpeg.frame.audio;
                             Audio : Ffmpeg.Frame.Audio.Audio_T := From_Frame (Frame);
                         begin
+                            Audio.Decode (Codec);
                             Audio_Action (audio);
+                            Free (Audio);
                         end;
                     when ffmpeg.codec_context.Subtitle =>
                         declare

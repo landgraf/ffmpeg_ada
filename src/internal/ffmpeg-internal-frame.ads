@@ -2,6 +2,7 @@ with ffmpeg.Internal.types;
 use type ffmpeg.internal.types.AVPacket_Access_T;
 package ffmpeg.Internal.frame is 
   subtype AVPacket_Access_T is ffmpeg.Internal.types.AVPacket_Access_T;
+  subtype AVFrame_Access is ffmpeg.Internal.types.AVFrame_Access_T;
 
   function Is_Null (Self : AVPacket_Access_T) return Boolean is (Self = null);
   procedure Free (Self : in out AVPacket_Access_T)

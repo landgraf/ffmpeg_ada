@@ -90,6 +90,8 @@ package ffmpeg.internal.types is
     AVMEDIA_TYPE_DATA, AVMEDIA_TYPE_SUBTITLE, AVMEDIA_TYPE_ATTACHMENT,
     AVMEDIA_TYPE_NB) with Convention => C;
 
+  type AVFrame_T is limited null record with Convention => C;
+  type AVFrame_Access_T is access all AVFrame_T;
 
   end ffmpeg.internal.types; 
 
