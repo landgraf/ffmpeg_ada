@@ -61,3 +61,5 @@ install:
 	cp -r examples ${DESTDIR}/${prefix}/share/doc/${PROJECT}/examples
 	cd ${DESTDIR}/${libdir} && ln -s ${PROJECT}/*.so* .
 
+examples: build
+	${BUILDER} -P examples/examples ${FLAGS} -XWord=${ARCH}

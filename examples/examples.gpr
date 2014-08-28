@@ -1,0 +1,10 @@
+with "ffmpeg_ada";
+project examples is 
+    for Source_Dirs use ("../examples/**");
+    for Object_Dir use "../obj/";
+    for Library_Dir use "../lib/";
+    for Exec_Dir use "../bin/";
+    for Library_Ali_Dir use "../lib/";
+    for Main use ("main.adb");
+end examples; 
+
