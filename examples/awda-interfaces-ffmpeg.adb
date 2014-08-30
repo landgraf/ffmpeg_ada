@@ -19,7 +19,7 @@ package body awda.interfaces.ffmpeg is
       use Ada.Text_IO;
       procedure Print (Element : in Standard.ffmpeg.frame.audio.audio_t) is
       begin
-          Put_Line("Audio frame");
+          Put_Line("Audio frame" & Seconds'Image (Seconds(Element.Start_Time)) & " => " & Seconds'Image (Seconds(Element.End_Time)));
       end Print;
 
       procedure Null_Action (Element : in Standard.ffmpeg.frame.video.video_t) is null;

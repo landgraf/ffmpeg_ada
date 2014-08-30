@@ -41,6 +41,11 @@ AVPacket *c_allocate_packet(){
     return avpkt;
 }
 
+AVFrame *c_allocate_frame(){
+    AVFrame *avpkt = (AVFrame *)malloc(sizeof(AVFrame) * 1);
+    return avpkt;
+}
+
 int c_stream_index(AVPacket *pkt)
 {
     return pkt->stream_index;

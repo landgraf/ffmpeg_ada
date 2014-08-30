@@ -25,11 +25,32 @@ package body ffmpeg.internal.frame is
      begin
          return C_Allocate_Packet;
      end Allocate;
+
+  function Allocate return AVFrame_Access_T is
+        function C_Allocate_Frame return AVFrame_Access_T
+            with Import, Convention => C, External_Name => "c_allocate_frame";
+  begin
+      return C_Allocate_Frame;
+  end Allocate;
+
     procedure Deallocate (Self : in out AVPacket_Access_T) is
         procedure C_Deallocate (Packet : AVPacket_Access_T)
             with Import, Convention => C, External_Name => "av_free_packet";
     begin
         C_Deallocate (Self);
     end Deallocate;
+
+    function Duration (Frame : AVFrame_Access_T) return Float is
+      function C_Duration (Frame : AVFrame_Access_T) return Interfaces.Unsigned_64
+          with Import, Convention => C, External_Name => "av_frame_get_pkt_duration";
+    begin
+        return Float (C_Duration (Frame))/ 1000.0;
+    end Duration;
+  function Timestamp (Frame : AVFrame_Access_T)  return Float is
+      function C_Timestamp (Frame : AVFrame_Access_T) return Interfaces.Unsigned_64
+          with Import, Convention => C, External_Name => "av_frame_get_best_effort_timestamp";
+  begin
+      return Float (C_Timestamp (Frame)) / 1000.0;
+  end Timestamp;
 end ffmpeg.internal.frame; 
 
