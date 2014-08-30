@@ -1,4 +1,4 @@
-with "ffmpeg_ada";
+with "../gnat/ffmpeg_ada";
 project examples is 
     for Source_Dirs use ("../examples/**");
     for Object_Dir use "../obj/";
@@ -6,5 +6,11 @@ project examples is
     for Exec_Dir use "../bin/";
     for Library_Ali_Dir use "../lib/";
     for Main use ("main.adb");
+    package Linker is 
+        for Default_Switches ("C") use  ("-lavformat" , "-lavutil", "-lavcodec");
+        for Linker_Options use ("-lavformat", "-lavutil", "-lavcodec");
+        for Switches ("main.adb") use ("-lavformat", "-lavcodec", "-lavutil");
+        for Switches ("metadata.c") use ("-lavformat" , "-lavutil", "-lavcodec");
+    end Linker;
 end examples; 
 
