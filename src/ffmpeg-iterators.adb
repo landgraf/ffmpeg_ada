@@ -15,7 +15,9 @@ package body ffmpeg.iterators is
             begin
                 ffmpeg.contexts.Next_Frame(Self, Frame, Last_Frame);
                 if Last_Frame then
-                    frame.free;
+                    -- FIXME
+                    -- WARNING!! Frame.packet is not properly initialized here
+                    frame.free_ptr;
                     exit;
                 end if;
                 exit when Last_Frame;
@@ -36,6 +38,7 @@ package body ffmpeg.iterators is
                         begin
                             Audio.Decode (Codec);
                             Audio_Action (audio);
+                            audio.free;
                         end;
                     when ffmpeg.codec_context.Subtitle =>
                         declare

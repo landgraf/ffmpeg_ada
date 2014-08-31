@@ -12,7 +12,7 @@ package ffmpeg.Internal.frame is
   function Allocate return AVFrame_Access_T;
   function Is_Null (Self : AVPacket_Access_T) return Boolean is (Self = null);
   function Is_Null (Self : AVFrame_Access_T) return Boolean is (Self = null);
-  procedure Free (Self : in out AVPacket_Access_T)
+  procedure Free (Self : in out AVPacket_Access_T; Free_Context : in Boolean := True)
         with Pre => Self /= null, Post => Self = null;
   procedure Free (Self : in out AVFrame_Access_T)
         with Pre => Self /= null, Post => Self = null;

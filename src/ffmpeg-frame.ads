@@ -14,6 +14,7 @@ package ffmpeg.frame is
     function Packet (Self : in frame_t) return AVPacket_Access_T;
     function Start_Time (Self : frame_t) return float;
     function End_Time (Self : frame_t) return float;
+    procedure Free_Ptr (Frame : in out frame_t);
     procedure Free (Frame : in out Frame_T);
     
     private

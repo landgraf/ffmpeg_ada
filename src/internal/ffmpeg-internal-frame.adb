@@ -2,12 +2,14 @@ with Ada.Unchecked_Deallocation;
 with System;
 package body ffmpeg.internal.frame is 
 
-    procedure Free (Self : in out AVPacket_Access_T)  is
+    procedure Free (Self : in out AVPacket_Access_T; Free_Context : in Boolean := True)  is
         procedure Free_Ptr is new Ada.Unchecked_Deallocation (Name => AVPacket_Access_T, Object => ffmpeg.internal.types.AVPacket_T);
         procedure c_free (Packet : AVPacket_Access_T)
             with Import, Convention => C, External_Name => "av_free_packet";
     begin
-        C_free (Self);
+        if Free_Context then
+            C_free (Self);
+        end if;
         if Self /= null then
             Free_Ptr (Self);
         end if;
@@ -16,8 +18,8 @@ package body ffmpeg.internal.frame is
     procedure Free (Self : in out AVFrame_Access_T)  is
         procedure Free_Ptr is new Ada.Unchecked_Deallocation (Name => AVFrame_Access_T, Object => ffmpeg.internal.types.AVFrame_T);
         procedure c_free (Frame : in out AVFrame_Access_T)
-            with Import, Convention => C, External_Name => "c_free_frame";
-            -- with Import, Convention => C, External_Name => "av_frame_free";
+            -- with Import, Convention => C, External_Name => "c_free_frame";
+            with Import, Convention => C, External_Name => "av_frame_free";
     begin
         C_free (Self);
         if Self /= null then

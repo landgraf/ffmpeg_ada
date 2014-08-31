@@ -12,6 +12,11 @@ package body ffmpeg.frame is
     end Free;
 
 
+    procedure Free_Ptr (Frame : in out frame_t) is
+    begin
+        Free (Frame.Packet , False);
+    end Free_Ptr;
+
     function Index (Self : in Frame_T) return Natural is (Index(Self.Packet));
     function Start_Time (Self : frame_t) return float is (Self.Start_Time);
     function End_Time (Self : frame_t) return float is (Self.End_Time);

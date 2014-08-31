@@ -9,9 +9,14 @@ package body ffmpeg.frame.audio is
       Self.Parse_Time;
   end Decode;
 
-  function From_Frame (Self : Frame_T) return Audio_T is
+  function From_Frame (Self : in out Frame_T) return Audio_T is
+      retval : audio_t := (Self with null record);
   begin
-    return (Self with null record);
+      -- Frame and Packet will be properly free'd 
+      -- this hask will help to avoid double free'ing 
+      Self.Frame := null;
+      Self.Packet := null;
+      return Retval;
   end From_Frame;
 end ffmpeg.frame.audio; 
 
