@@ -46,6 +46,10 @@ AVFrame *c_allocate_frame(){
     return avpkt;
 }
 
+void c_free_frame(AVFrame *frame){
+    av_frame_free(&frame);
+}
+
 int c_stream_index(AVPacket *pkt)
 {
     return pkt->stream_index;

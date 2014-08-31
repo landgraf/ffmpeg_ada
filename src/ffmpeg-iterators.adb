@@ -36,7 +36,6 @@ package body ffmpeg.iterators is
                         begin
                             Audio.Decode (Codec);
                             Audio_Action (audio);
-                            -- Free (Audio);
                         end;
                     when ffmpeg.codec_context.Subtitle =>
                         declare

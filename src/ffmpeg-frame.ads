@@ -15,7 +15,6 @@ package ffmpeg.frame is
     function Start_Time (Self : frame_t) return float;
     function End_Time (Self : frame_t) return float;
     procedure Free (Frame : in out Frame_T);
-    -- !!! FIXME
     
     private
 
@@ -25,7 +24,9 @@ package ffmpeg.frame is
 
     type frame_t is new abstract_object with record
         Packet     : AVPacket_Access_T := Allocate;
-        Frame      : AVFrame_Access_T := Allocate;
+        Frame      : AVFrame_Access_T := null;
+        -- WARNING! Do not allocate frame before really using it. It can be lead of segmentation fault in free procedure
+        -- Another possible approach is to use memset and check if fields is null but perfomance can be worse
         Start_Time : float := 0.0; -- in float from the beginning 
         End_Time   : float := 0.0; 
     end record;

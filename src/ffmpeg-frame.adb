@@ -3,6 +3,9 @@ package body ffmpeg.frame is
 
     procedure Free (Frame : in out Frame_T) is 
     begin
+        if not Is_Null (Frame.Frame)  then
+            Free (Frame.Frame);
+        end if;
         if not Is_Null (Frame.Packet)  then
             Free (Frame.Packet);
         end if;
