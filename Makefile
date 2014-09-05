@@ -1,5 +1,10 @@
 BUILDER ?= gprbuild -p -gnat12 -gnata 
 FLAGS ?=
+ifeq (${VERBOSE}, True)
+	FLAGS += -v 
+else
+	VERBOSE = False
+endif
 ifeq (${DEBUG}, True)
 	FLAGS +=  -gnata -ggdb -g 
 else
@@ -61,5 +66,10 @@ install:
 	cp -r examples ${DESTDIR}/${prefix}/share/doc/${PROJECT}/examples
 	cd ${DESTDIR}/${libdir} && ln -s ${PROJECT}/*.so* .
 
+## Configure few options
+config: clean
+	${BUILDER} -P tools/tools -p -f 
+	./bin/configure
+	
 examples: build
 	${BUILDER} -P examples/examples ${FLAGS} -XWord=${ARCH}
